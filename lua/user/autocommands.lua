@@ -1,6 +1,6 @@
 -- Helper functions
 local function trim_trailing_whitespace(opts)
-    if (vim.bo.binary == false) and (vim.bo[opts.buf].filetype ~= "diff") then
+    if (vim.bo.binary == false) and (vim.bo[opts.buf].filetype ~= "diff") and (vim.bo[opts.buf].filetype ~= "markdown") then
         local view = vim.fn.winsaveview()
         vim.cmd [[keeppatterns %s/\s\+$//e]]
         vim.fn.winrestview(view)
