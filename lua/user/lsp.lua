@@ -1,12 +1,44 @@
-local M = {}
+--
+-- vim.lsp.enable is called by mason-lspconfig.nvim, which installs all language servers
 
--- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+-- Add additional capabilities supported by nvim-cmp
 if package.loaded["cmp_nvim_lsp"] then
     capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 end
+
+vim.lsp.config('*', {
+    capabilities = capabilities,
+})
+
+-- This is coming from a custom mason registry because of https://github.com/mason-org/mason-registry/pull/6330
+-- source: https://github.com/Crashdummyy/roslynLanguageServer?tab=readme-ov-file
+-- which monitors https://dev.azure.com/azure-public/vside/_artifacts/feed/vs-impl/NuGet/, as described in https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#roslyn_ls
+vim.lsp.config("roslyn", {})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+        local bufopts = { buffer = args.buf }
+
+        -- Actions
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+        vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+        vim.keymap.set("n", "<leader>bf", vim.lsp.buf.format, bufopts)
+
+        -- Dialogs
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+        vim.keymap.set("n", "<c-s>", vim.lsp.buf.signature_help, bufopts)
+
+        -- Options
+        vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, bufopts)
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
+  end
+})
+
 
 -- Vim Diagnostics
 vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, { buffer = 0 })
@@ -14,74 +46,3 @@ vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, { buffer = 0 })
 vim.keymap.set("n", "<leader>dll", vim.diagnostic.setloclist, { buffer = 0 })
 
 vim.keymap.set("n", "<leader>dl", vim.diagnostic.open_float)
-
--- General on_attach
-local on_attach = function(client,bufnr, go_to_definition_function)
-    local bufopts = { buffer = bufnr }
-
-    go_to_definition_function = go_to_definition_function or vim.lsp.buf.definition
-
-    -- Actions
-    vim.keymap.set("n", "gd", go_to_definition_function, bufopts)
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-    vim.keymap.set("n", "<leader>bf", vim.lsp.buf.format, bufopts)
-
-    -- Dialogs
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-    vim.keymap.set("n", "<c-s>", vim.lsp.buf.signature_help, bufopts)
-
-    -- Options
-    vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, bufopts)
-    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
-end
-
--- All of the following LSPs are auto-installed with Mason
-
--- C#
-require"lspconfig".omnisharp.setup{
-    capabilities = capabilities,
-    on_attach = on_attach(client, bufnr, require('omnisharp_extended').lsp_definition),
-
-    settings = {
-      FormattingOptions = {
-        EnableEditorConfigSupport = true,
-      },
-    },
-}
-
--- Typescript
-require"lspconfig".ts_ls.setup{
-    capabilities = capabilities,
-    on_attach = on_attach,
-}
-
--- CSS / HTML / JSON / ESLint
--- Install with 'npm i -g vscode-langservers-extracted'
-require"lspconfig".cssls.setup{
-    capabilities = capabilities,
-    on_attach = on_attach,
-}
-
-require"lspconfig".html.setup{
-    capabilities = capabilities,
-    on_attach = on_attach,
-}
-
-require"lspconfig".jsonls.setup{
-    capabilities = capabilities,
-    on_attach = on_attach,
-}
-
--- Markdown
--- Install via package manager on OS of choice or build from source
-require"lspconfig".marksman.setup{
-    capabilities = capabilities,
-    on_attach = on_attach,
-}
-
-M.on_attach = on_attach
-M.capabilities = capabilities
-
-return M
