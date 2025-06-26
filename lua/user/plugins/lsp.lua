@@ -15,6 +15,7 @@ return {
         },
     },
     {
+        -- Using the Mason config as described in the README
         "seblyng/roslyn.nvim",
         ft = "cs",
         opts = {},
