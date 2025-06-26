@@ -5,8 +5,4 @@ return {
   -- Motions
   "tpope/vim-surround",
   "tpope/vim-commentary",
-
-  -- Appearance
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 }
-
 }
