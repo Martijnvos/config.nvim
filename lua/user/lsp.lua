@@ -57,6 +57,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- Options
         vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, bufopts)
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
+
+        -- Autocommands
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = "LSP",
+            desc = "Auto-formatting on save",
+            callback = function()
+                vim.lsp.buf.format({ bufnr = args.buf, id = args.data.client_id, timeout_ms = 1000 })
+            end
+        })
     end
 })
 
