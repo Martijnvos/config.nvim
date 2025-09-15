@@ -18,6 +18,9 @@ vim.lsp.config('*', {
 -- which monitors https://dev.azure.com/azure-public/vside/_artifacts/feed/vs-impl/NuGet/, as described in https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#roslyn_ls
 vim.lsp.config("roslyn", {
     settings = {
+        ["csharp|formatting"] = {
+            dotnet_organize_imports_on_format = true,
+        },
         ["csharp|inlay_hints"] = {
             csharp_enable_inlay_hints_for_types = true,
             dotnet_enable_inlay_hints_for_parameters = true,
