@@ -26,6 +26,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
         vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
         vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+        vim.keymap.set("n", "<leader>ds", vim.lsp.buf.document_symbol, bufopts)
         vim.keymap.set("n", "<leader>bf", vim.lsp.buf.format, bufopts)
 
         if vim.lsp.inlay_hint then
