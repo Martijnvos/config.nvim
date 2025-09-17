@@ -1,12 +1,4 @@
 -- Helper functions
-local function trim_trailing_whitespace(opts)
-    if (vim.bo.binary == false) and (vim.bo[opts.buf].filetype ~= "diff") and (vim.bo[opts.buf].filetype ~= "markdown") then
-        local view = vim.fn.winsaveview()
-        vim.cmd [[keeppatterns %s/\s\+$//e]]
-        vim.fn.winrestview(view)
-    end
-end
-
 local function jump_to_last_cursor_position(opts)
     local ft = vim.bo[opts.buf].filetype
     if (ft:match("commit") or ft:match("rebase")) then
@@ -29,11 +21,4 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     desc =
     "Jump to the last known cursor position. Don't when the position is invalid, when inside an event handler and for a commit message (it's likely a different one than last time)",
     callback = jump_to_last_cursor_position
-})
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*",
-    group = augroup,
-    desc = "Trim trailing whitespace on save",
-    callback = trim_trailing_whitespace
 })
