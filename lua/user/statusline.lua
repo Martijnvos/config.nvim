@@ -13,19 +13,19 @@ function construct_status_line()
     return table.concat {
         "%#PmenuSel#", -- Popup menu selected highlight color
         fetch_git_branch(),
-        "%#LineNr#", -- Line number highlight color
-        " %F", -- Full file path
-        " %m", -- Modified flag
-        "%r", -- Readonly flag
-        "%=", -- Separation point between left and right aligned items
+        "%#LineNr#",   -- Line number highlight color
+        " %F",         -- Full file path
+        " %m",         -- Modified flag
+        "%r",          -- Readonly flag
+        "%=",          -- Separation point between left and right aligned items
         "%#CursorColumn#",
         vim.opt.paste:get() and " PASTE " or "",
         " %y", -- Type of file
         " " .. (string.len(vim.bo.fileencoding) > 0 and vim.bo.fileencoding or vim.o.encoding),
         " [" .. vim.bo.fileformat .. "]",
         " %p%%", -- Percentage through file in lines
-        " %c", -- Current column count
-        " " -- Closing space for breathing room
+        " %c",   -- Current column count
+        " "      -- Closing space for breathing room
     }
 end
 

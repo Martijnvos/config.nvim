@@ -5,12 +5,15 @@ return {
             ensure_installed = { "ts_ls", "cssls", "html", "jsonls", "marksman" },
         },
         dependencies = {
-            { "mason-org/mason.nvim", opts = {
-                registries = {
-                    "github:mason-org/mason-registry",
-                    "github:crashdummyy/mason-registry"
+            {
+                "mason-org/mason.nvim",
+                opts = {
+                    registries = {
+                        "github:mason-org/mason-registry",
+                        "github:crashdummyy/mason-registry"
+                    }
                 }
-            }},
+            },
             "neovim/nvim-lspconfig",
         },
     },
