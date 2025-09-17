@@ -3,6 +3,7 @@ require "user.keymaps"
 require "user.statusline"
 require "user.autocommands"
 require "user.lsp"
+require "user.diagnostic"
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
