@@ -4,6 +4,7 @@ local options = {
     number = true,         -- show line number
     relativenumber = true, -- use relative line number
     cmdheight = 2,         -- provide more space for displaying messages
+    winborder = "rounded", -- clearer window borders when hovering etc.
     ignorecase = true,     -- use case insensitive search
     smartcase = true,      -- don't use case insensitive search on capital letter input
     tabstop = 4,           -- tab size
