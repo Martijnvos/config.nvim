@@ -20,6 +20,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     desc = "Register keybindings",
     callback = function(args)
         local bufopts = { buffer = args.buf }
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
 
         -- Actions
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
@@ -29,7 +30,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set("n", "<leader>ds", vim.lsp.buf.document_symbol, bufopts)
         vim.keymap.set("n", "<leader>bf", vim.lsp.buf.format, bufopts)
 
-        if vim.lsp.inlay_hint then
+        if client:supports_method("textDocument/inlayHint") then
             vim.keymap.set("n", "<leader>ih", function()
                 vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = args.buf }), { bufnr = args.buf })
             end, bufopts)
@@ -44,22 +45,26 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
 
         -- Autocommands
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            group = "LSP",
-            desc = "Auto-formatting on save",
-            callback = function()
-                vim.lsp.buf.format({ bufnr = args.buf, id = args.data.client_id, timeout_ms = 1000 })
-            end
-        })
-    end
-})
-
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "CursorHold" }, {
-    group = "LSP",
-    desc = "Auto-trigger CodeLens",
-    callback = function()
-        if vim.lsp.codelens then
-            vim.lsp.codelens.refresh({ bufnr = 0 })
+        if client:supports_method("textDocument/formatting") then
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                group = "LSP",
+                desc = "Auto-formatting on save",
+                buffer = args.buf,
+                callback = function()
+                    vim.lsp.buf.format()
+                end
+            })
         end
-    end,
+
+        if client:supports_method("textDocument/codeLens") then
+            vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "CursorHold" }, {
+                group = "LSP",
+                desc = "Auto-trigger CodeLens",
+                buffer = args.buf,
+                callback = function()
+                    vim.lsp.codelens.refresh({ bufnr = 0 })
+                end,
+            })
+        end
+    end
 })
