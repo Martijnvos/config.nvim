@@ -1,18 +1,6 @@
 --
 -- vim.lsp.enable is called by mason-lspconfig.nvim, which installs all language servers
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
--- Add additional capabilities supported by nvim-cmp
-if package.loaded["cmp_nvim_lsp"] then
-    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-end
-
-vim.lsp.config('*', {
-    capabilities = capabilities,
-})
-
 vim.api.nvim_create_augroup("LSP", { clear = true })
 
 vim.api.nvim_create_autocmd('LspAttach', {

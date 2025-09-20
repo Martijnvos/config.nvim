@@ -23,6 +23,5 @@ return {
         ft = "cs",
         opts = {},
     },
-    "hrsh7th/cmp-nvim-lsp",
     "editorconfig/editorconfig-vim",
 }
