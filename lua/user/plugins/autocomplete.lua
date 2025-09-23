@@ -5,6 +5,9 @@ return {
         completion = {
             menu = {
                 auto_show = false,
+                draw = {
+                    treesitter = { 'lsp' },
+                },
             },
             documentation = {
                 auto_show = true
