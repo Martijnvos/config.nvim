@@ -1,20 +1,23 @@
 return {
     {
-        "catppuccin/nvim",
-        name = "catppuccin",
+        "everviolet/nvim",
+        name = "evergarden",
         priority = 1000,
         config = function()
-            require("catppuccin").setup {
-                color_overrides = {
-                    mocha = {
-                        base = "#131111",
+            require("evergarden").setup {
+                theme = {
+                    variant = "winter",
+                },
+                overrides = {
+                    Normal = {
+                        bg = "#181A1C",
                     },
                 }
             }
 
             vim.cmd [[
                 try
-                    colorscheme catppuccin
+                    colorscheme evergarden
                 catch
                     colorscheme default
                 endtry
