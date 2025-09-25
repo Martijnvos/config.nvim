@@ -23,5 +23,4 @@ return {
         ft = "cs",
         opts = {},
     },
-    "editorconfig/editorconfig-vim",
 }
