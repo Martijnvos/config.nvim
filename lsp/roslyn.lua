@@ -12,5 +12,23 @@ return {
             dotnet_enable_inlay_hints_for_parameters = true,
             dotnet_enable_inlay_hints_for_other_parameters = true,
         }
-    }
+    },
+    on_attach = function()
+        -- Basic .csproj formatting
+        if not vim.g.roslyn_csproj_setup then
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                group = vim.api.nvim_create_augroup("RoslynProjectCsproj", { clear = true }),
+                pattern = "*.csproj",
+                callback = function(args)
+                    local roslyn_clients = vim.lsp.get_clients({ name = "roslyn" })
+                    if #roslyn_clients > 0 then
+                        vim.api.nvim_buf_call(args.buf, function()
+                            vim.cmd("normal! gg=G")
+                        end)
+                    end
+                end,
+            })
+            vim.g.roslyn_csproj_setup = true
+        end
+    end
 }
