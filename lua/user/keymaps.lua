@@ -34,8 +34,8 @@ map_key("", "<C-h>", "<C-w>h")
 map_key("", "<C-l>", "<C-w>l")
 
 -- Diagnostics
-map_key("n", "<leader>dn", vim.diagnostic.goto_next, { buffer = 0 })
-map_key("n", "<leader>dp", vim.diagnostic.goto_prev, { buffer = 0 })
-map_key("n", "<leader>dll", vim.diagnostic.setloclist, { buffer = 0 })
+map_key("n", "<leader>dn", vim.diagnostic.goto_next)
+map_key("n", "<leader>dp", vim.diagnostic.goto_prev)
+map_key("n", "<leader>dll", vim.diagnostic.setloclist)
 
 map_key("n", "<leader>dl", vim.diagnostic.open_float)
