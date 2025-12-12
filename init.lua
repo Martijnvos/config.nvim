@@ -4,6 +4,7 @@ require "user.statusline"
 require "user.autocommands"
 require "user.lsp"
 require "user.diagnostic"
+require "user.ft-overrides"
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
