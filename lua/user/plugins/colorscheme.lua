@@ -15,13 +15,11 @@ return {
                 }
             }
 
-            vim.cmd [[
-                try
-                    colorscheme evergarden
-                catch
-                    colorscheme default
-                endtry
-            ]]
+            vim.api.nvim_create_autocmd("VimEnter", {
+                callback = function()
+                    vim.cmd("colorscheme evergarden")
+                end,
+            })
         end,
     }
 }
