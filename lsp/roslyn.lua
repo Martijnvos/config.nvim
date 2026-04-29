@@ -4,6 +4,10 @@
 return {
     name = "roslyn",
     settings = {
+        ["csharp|background_analysis"] = {
+            dotnet_compiler_diagnostics_scope = "fullSolution",
+            dotnet_analyzer_diagnostics_scope = "fullSolution",
+        },
         ["csharp|formatting"] = {
             dotnet_organize_imports_on_format = true,
         },
@@ -13,7 +17,9 @@ return {
             dotnet_enable_inlay_hints_for_other_parameters = true,
         }
     },
-    on_attach = function()
+    on_attach = function(client)
+        client.server_capabilities.diagnosticProvider = { workspaceDiagnostics = true }
+
         -- Basic .csproj formatting
         if not vim.g.roslyn_csproj_setup then
             vim.api.nvim_create_autocmd("BufWritePre", {
