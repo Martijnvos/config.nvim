@@ -10,27 +10,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
         local bufopts = { buffer = args.buf }
         local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-        -- Actions
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-        vim.keymap.set("n", "<leader>ds", vim.lsp.buf.document_symbol, bufopts)
-        vim.keymap.set("n", "<leader>bf", vim.lsp.buf.format, bufopts)
+        vim.keymap.set("n", "grd", vim.lsp.buf.definition, bufopts)
 
         if client:supports_method("textDocument/inlayHint") then
             vim.keymap.set("n", "<leader>ih", function()
                 vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = args.buf }), { bufnr = args.buf })
             end, bufopts)
         end
-
-        -- Dialogs
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-        vim.keymap.set("n", "<c-s>", vim.lsp.buf.signature_help, bufopts)
-
-        -- Options
-        vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, bufopts)
-        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
 
         -- Autocommands (per-buffer group to prevent duplicates on re-attach)
         local bufgroup = vim.api.nvim_create_augroup("LSP_buf_" .. args.buf, { clear = true })
