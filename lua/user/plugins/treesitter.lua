@@ -1,11 +1,1 @@
-return {
-    {
-        "nvim-treesitter/nvim-treesitter",
-        branch = "main",
-        lazy = false,
-        build = ":TSUpdate",
-        config = function()
-            require("nvim-treesitter").install({ "c_sharp", "html", "css", "javascript", "json", "yaml" })
-        end,
-    },
-}
+require("nvim-treesitter").install({ "c_sharp", "html", "css", "javascript", "json", "yaml" })

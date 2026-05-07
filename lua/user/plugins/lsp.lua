@@ -1,26 +1,10 @@
-return {
-    {
-        "mason-org/mason-lspconfig.nvim",
-        opts = {
-            ensure_installed = { "ts_ls", "cssls", "html", "jsonls", "marksman" },
-        },
-        dependencies = {
-            {
-                "mason-org/mason.nvim",
-                opts = {
-                    registries = {
-                        "github:mason-org/mason-registry",
-                        "github:crashdummyy/mason-registry"
-                    }
-                }
-            },
-            "neovim/nvim-lspconfig",
-        },
+require("mason").setup {
+    registries = {
+        "github:mason-org/mason-registry",
+        "github:crashdummyy/mason-registry",
     },
-    {
-        -- Using the Mason config as described in the README
-        "seblyng/roslyn.nvim",
-        ft = "cs",
-        opts = {},
-    },
+}
+
+require("mason-lspconfig").setup {
+    ensure_installed = { "ts_ls", "cssls", "html", "jsonls", "marksman" },
 }

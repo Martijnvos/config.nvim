@@ -6,21 +6,21 @@ require "user.lsp"
 require "user.diagnostic"
 require "user.ft-overrides"
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.uv.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    })
-end
-vim.opt.rtp:prepend(lazypath)
+local gh = function(x) return 'https://github.com/' .. x end
 
-require("lazy").setup("user.plugins", {
-    change_detection = {
-        notify = false,
-    },
+vim.pack.add({
+    gh 'tpope/vim-surround',
+    gh 'tpope/vim-commentary',
+    { src = gh 'saghen/blink.cmp', version = vim.version.range('1') },
+    { src = gh 'everviolet/nvim',  name = 'evergarden' },
+    gh 'mason-org/mason.nvim',
+    gh 'neovim/nvim-lspconfig',
+    gh 'mason-org/mason-lspconfig.nvim',
+    gh 'seblyng/roslyn.nvim',
+    { src = gh 'nvim-treesitter/nvim-treesitter', version = 'main' },
 })
+
+require "user.plugins.colorscheme"
+require "user.plugins.autocomplete"
+require "user.plugins.lsp"
+require "user.plugins.treesitter"
