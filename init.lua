@@ -10,7 +10,6 @@ local gh = function(x) return 'https://github.com/' .. x end
 
 vim.pack.add({
     gh 'tpope/vim-surround',
-    gh 'tpope/vim-commentary',
     { src = gh 'saghen/blink.cmp', version = vim.version.range('1') },
     { src = gh 'everviolet/nvim',  name = 'evergarden' },
     gh 'mason-org/mason.nvim',
