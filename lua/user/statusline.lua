@@ -29,6 +29,7 @@ function construct_status_line()
         "%r",          -- Readonly flag
         "%=",          -- Separation point between left and right aligned items
         "%#CursorColumn#",
+        vim.diagnostic.status() or "",
         " %y", -- Type of file
         " " .. (string.len(vim.bo.fileencoding) > 0 and vim.bo.fileencoding or vim.o.encoding),
         " [" .. vim.bo.fileformat .. "]",
