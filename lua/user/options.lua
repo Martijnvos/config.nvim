@@ -1,6 +1,4 @@
 local options = {
-    splitbelow = true,     -- splits open at the bottom instead of top
-    splitright = true,     -- splits open at the right instead of left
     number = true,         -- show line number
     relativenumber = true, -- use relative line number
     cmdheight = 2,         -- provide more space for displaying messages
