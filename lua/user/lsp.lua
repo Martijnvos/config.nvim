@@ -1,6 +1,3 @@
---
--- vim.lsp.enable is called by mason-lspconfig.nvim, which installs all language servers
-
 vim.api.nvim_create_augroup("LSP", { clear = true })
 
 vim.api.nvim_create_autocmd('LspAttach', {

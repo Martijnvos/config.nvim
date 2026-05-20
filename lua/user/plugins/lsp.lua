@@ -3,8 +3,7 @@ require("mason").setup {
         "github:mason-org/mason-registry",
         "github:crashdummyy/mason-registry",
     },
+    ensure_installed = { "typescript-language-server", "css-lsp", "html-lsp", "json-lsp", "marksman" },
 }
 
-require("mason-lspconfig").setup {
-    ensure_installed = { "ts_ls", "cssls", "html", "jsonls", "marksman" },
-}
+vim.lsp.enable({ "ts_ls", "cssls", "html", "jsonls", "marksman", "roslyn" })
