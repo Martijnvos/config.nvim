@@ -6,8 +6,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
         local bufopts = { buffer = args.buf }
         local client = vim.lsp.get_client_by_id(args.data.client_id)
+        local builtin = require "telescope.builtin"
 
-        vim.keymap.set("n", "grd", vim.lsp.buf.definition, bufopts)
+        vim.keymap.set("n", "grd", builtin.lsp_definitions, bufopts)
+        vim.keymap.set("n", "grr", builtin.lsp_references, bufopts)
+        vim.keymap.set("n", "gri", builtin.lsp_implementations, bufopts)
+        vim.keymap.set("n", "grt", builtin.lsp_type_definitions, bufopts)
+        vim.keymap.set("n", "gO", builtin.lsp_document_symbols, bufopts)
 
         if client:supports_method("textDocument/inlayHint") then
             vim.keymap.set("n", "<leader>ih", function()

@@ -15,9 +15,13 @@ vim.pack.add({
     gh 'mason-org/mason.nvim',
     gh 'seblyng/roslyn.nvim',
     { src = gh 'nvim-treesitter/nvim-treesitter', version = 'main' },
+    gh 'nvim-lua/plenary.nvim',
+    gh 'nvim-telescope/telescope.nvim',
+    gh 'nvim-telescope/telescope-ui-select.nvim',
 })
 
 require "user.plugins.colorscheme"
 require "user.plugins.autocomplete"
 require "user.plugins.lsp"
 require "user.plugins.treesitter"
+require "user.plugins.telescope"
